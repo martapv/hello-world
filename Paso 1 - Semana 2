@@ -1,0 +1,75 @@
+#PROBLEMA 1
+
+sca;
+close all;
+clearvars;
+PsychDefaultSetup(2);
+screens = Screen('Screens');
+screenNumber = max(screens);
+white = WhiteIndex(screenNumber);
+black = BlackIndex(screenNumber);
+grey = white / 2;
+[window, windowRect] = PsychImaging('OpenWindow', screenNumber, grey);
+WaitSecs(5);
+sca;
+
+#PROBLEMA2
+
+sca;
+close all;
+clearvars;
+PsychDefaultSetup(2);
+screens = Screen('Screens');
+screenNumber = max(screens);
+white = WhiteIndex(screenNumber);
+black = BlackIndex(screenNumber);
+grey = white / 2;
+[window, windowRect] = PsychImaging('OpenWindow', screenNumber, grey);
+[screenXpixels, screenYpixels] = Screen('WIndowSize', window);
+[xCenter, yCenter] = RectCenter(windowRect);
+baseRect = [0 0 400 400];
+centeredRect = CenterRectOnPointd(baseRect, xCenter, yCenter);
+rectColor = [1 0 0];
+Screen('FillRect', window, rectColor, centeredRect)
+Screen('Flip', window);
+WaitSecs(2);
+Screen('FillRect', window, grey);
+Screen('Flip', window);
+WaitSecs(1);
+baseRect = [0 0 400 400];
+centeredRect = CenterRectOnPointd(baseRect, xCenter - 400, yCenter);
+rectColor = [1 0 0];
+Screen('FillRect', window, rectColor, centeredRect)
+Screen('Flip', window);
+WaitSecs(2);
+sca;
+
+#PROBLEMA 3
+sca;
+close all;
+clearvars;
+PsychDefaultSetup(2);
+screens = Screen('Screens');
+screenNumber = max(screens);
+white = WhiteIndex(screenNumber);
+black = BlackIndex(screenNumber);
+grey = white / 2;
+[window, windowRect] = PsychImaging('OpenWindow', screenNumber, grey);
+[screenXpixels, screenYpixels] = Screen('WIndowSize', window);
+[xCenter, yCenter] = RectCenter(windowRect);
+baseRect = [0 0 screenYpixels/4 screenYpixels/4];
+centeredRect = CenterRectOnPointd(baseRect, xCenter, yCenter);
+rectColor = [1 0 0];
+Screen('FillRect', window, rectColor, centeredRect)
+Screen('Flip', window);
+WaitSecs(2);
+Screen('FillRect', window, grey);
+Screen('Flip', window);
+WaitSecs(1);
+baseRect = [0 0 screenYpixels/4 screenYpixels/4];
+centeredRect = CenterRectOnPointd(baseRect, xCenter - 400, yCenter);
+rectColor = [1 0 0];
+Screen('FillRect', window, rectColor, centeredRect)
+Screen('Flip', window);
+WaitSecs(2);
+sca;
