@@ -1,4 +1,4 @@
-#PROBLEMA 1
+%PROBLEMA 1
 
 sca;
 close all;
@@ -13,7 +13,7 @@ grey = white / 2;
 WaitSecs(5);
 sca;
 
-#PROBLEMA2
+%PROBLEMA2
 
 sca;
 close all;
@@ -44,7 +44,7 @@ Screen('Flip', window);
 WaitSecs(2);
 sca;
 
-#PROBLEMA 3
+%PROBLEMA 3
 sca;
 close all;
 clearvars;
@@ -74,7 +74,7 @@ Screen('Flip', window);
 WaitSecs(2);
 sca;
 
-#PROBLEMA4
+%PROBLEMA4
 sca;
 close all;
 clearvars;
@@ -105,4 +105,50 @@ rectColor = [1 0 0];
 Screen('FillRect', window, rectColor, centeredRect)
 Screen('Flip', window);
 WaitSecs(time);
+sca;
+
+%PROBLEMA 5
+sca;
+close all;
+clearvars;
+pseudoal = [3:7];
+election = randperm (4);
+time = pseudoal(election(1));
+pseudoal = [0.2:0.1:0.5];
+election = randperm (4);
+time2 = pseudoal(election(1));
+PsychDefaultSetup(2);
+screens = Screen('Screens');
+screenNumber = max(screens);
+white = WhiteIndex(screenNumber);
+black = BlackIndex(screenNumber);
+grey = white / 2;
+[window, windowRect] = PsychImaging('OpenWindow', screenNumber, grey);
+[screenXpixels, screenYpixels] = Screen('WIndowSize', window);
+[xCenter, yCenter] = RectCenter(windowRect);
+Screen('BlendFunction', window, 'GL_SRC_ALPHA', 'GL_ONE_MINUS_SRC_ALPHA');
+fixCrossDimPix = 40;
+xCoords = [-fixCrossDimPix fixCrossDimPix 0 0]
+yCoords = [0 0 -fixCrossDimPix fixCrossDimPix]
+allCoords = [xCoords; yCoords];
+lineWidthPix = 4;
+Screen('DrawLines', window, allCoords,...
+    lineWidthPix, white, [xCenter yCenter], 2)
+Screen('Flip', window);
+WaitSecs(time2);
+baseRect = [0 0 screenYpixels/4 screenYpixels/4];
+centeredRect = CenterRectOnPointd(baseRect, xCenter, yCenter);
+rectColor = [1 0 0];
+Screen('FillRect', window, rectColor, centeredRect)
+Screen('Flip', window);
+WaitSecs(2);
+Screen('FillRect', window, grey);
+Screen('Flip', window);
+WaitSecs(1);
+baseRect = [0 0 screenYpixels/4 screenYpixels/4];
+centeredRect = CenterRectOnPointd(baseRect, xCenter - 400, yCenter);
+rectColor = [1 0 0];
+Screen('FillRect', window, rectColor, centeredRect)
+Screen('Flip', window);
+WaitSecs(2);
 sca;
