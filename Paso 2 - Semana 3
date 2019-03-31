@@ -1,0 +1,43 @@
+%PROBLEMA 7
+
+sca;
+close all;
+clearvars;
+pseudoal = [0.2:0.1:0.5];
+election = randperm (4);
+time = pseudoal(election(1));
+PsychDefaultSetup(2);
+screens = Screen('Screens');
+screenNumber = max(screens);
+white = WhiteIndex(screenNumber);
+black = BlackIndex(screenNumber);
+grey = white / 2;
+[window, windowRect] = PsychImaging('OpenWindow', screenNumber, grey);
+[screenXpixels, screenYpixels] = Screen('WIndowSize', window);
+[xCenter, yCenter] = RectCenter(windowRect);
+Screen('BlendFunction', window, 'GL_SRC_ALPHA', 'GL_ONE_MINUS_SRC_ALPHA');
+fixCrossDimPix = 40;
+xCoords = [-fixCrossDimPix fixCrossDimPix 0 0]
+yCoords = [0 0 -fixCrossDimPix fixCrossDimPix]
+allCoords = [xCoords; yCoords];
+lineWidthPix = 4;
+Screen('DrawLines', window, allCoords,...
+    lineWidthPix, white, [xCenter yCenter], 2)
+Screen('Flip', window);
+WaitSecs(time);
+baseRect = [0 0 200 200];
+maxDiameter = max(baseRect) * 1.01;
+centeredRect = CenterRectOnPointd(baseRect, xCenter+screenYpixels/4, yCenter);
+rectColor = [0 1 0]
+Screen('FillOval', window, rectColor, centeredRect, maxDiameter);
+baseRect = [0 0 screenYpixels/4 screenYpixels/4];
+centeredRect = CenterRectOnPointd(baseRect, xCenter-screenYpixels/4, yCenter);
+rectColor = [1 0 0];
+Screen('FillRect', window, rectColor, centeredRect)
+Screen('Flip', window);
+WaitSecs(2);
+Screen('FillRect', window, grey);
+Screen('Flip', window);
+WaitSecs(0.5);
+sca;
+
