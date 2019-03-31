@@ -86,3 +86,67 @@ Screen('Flip', window);
 WaitSecs(0.5);
 end
 sca;
+
+&PROBLEMA 9
+
+sca;
+close all;
+clearvars;
+pseudoal = [0.2:0.1:0.5];
+election = randperm (4);
+time = pseudoal(election(1));
+PsychDefaultSetup(2);
+screens = Screen('Screens');
+screenNumber = max(screens);
+white = WhiteIndex(screenNumber);
+black = BlackIndex(screenNumber);
+grey = white / 2;
+[window, windowRect] = PsychImaging('OpenWindow', screenNumber, grey);
+n = 6;
+tipo_trial = zeros (1,n);
+tipo_trial(1,1:n/2) = 1;
+tipo_trial(1,(n/2+1):end) = 2;
+[screenXpixels, screenYpixels] = Screen('WIndowSize', window);
+[xCenter, yCenter] = RectCenter(windowRect);
+Screen('BlendFunction', window, 'GL_SRC_ALPHA', 'GL_ONE_MINUS_SRC_ALPHA');
+fixCrossDimPix = 40;
+xCoords = [-fixCrossDimPix fixCrossDimPix 0 0]
+yCoords = [0 0 -fixCrossDimPix fixCrossDimPix]
+allCoords = [xCoords; yCoords];
+lineWidthPix = 4;
+for i=1:n;
+Screen('DrawLines', window, allCoords,...
+    lineWidthPix, white, [xCenter yCenter], 2)
+Screen('Flip', window);
+WaitSecs(time);
+if tipo_trial(1,i) == 1;
+   baseRect1 = [0 0 200 200];
+maxDiameter = max(baseRect1) * 1.01;
+centeredRect1 = CenterRectOnPointd(baseRect1, xCenter+screenYpixels/4, yCenter);
+rect1Color = [0 1 0]
+Screen('FillOval', window, rect1Color, centeredRect1, maxDiameter);
+baseRect = [0 0 screenYpixels/4 screenYpixels/4];
+centeredRect = CenterRectOnPointd(baseRect, xCenter-screenYpixels/4, yCenter);
+rectColor = [1 0 0];
+Screen('FillRect', window, rectColor, centeredRect)
+Screen('Flip', window);
+WaitSecs(2);
+end
+if tipo_trial(1,i) == 2;
+   baseRect1 = [0 0 200 200];
+maxDiameter = max(baseRect1) * 1.01;
+centeredRect1 = CenterRectOnPointd(baseRect1, xCenter-screenYpixels/4, yCenter);
+rect1Color = [0 1 0]
+Screen('FillOval', window, rect1Color, centeredRect1, maxDiameter);
+baseRect = [0 0 screenYpixels/4 screenYpixels/4];
+centeredRect = CenterRectOnPointd(baseRect, xCenter+screenYpixels/4, yCenter);
+rectColor = [1 0 0];
+Screen('FillRect', window, rectColor, centeredRect)
+Screen('Flip', window);
+WaitSecs(2); 
+end
+Screen('FillRect', window, grey);
+Screen('Flip', window);
+WaitSecs(0.5);
+end
+sca;
